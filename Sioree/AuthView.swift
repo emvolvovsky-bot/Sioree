@@ -62,6 +62,15 @@ struct AuthView: View {
                 )
             }
 
+            NavigationLink(destination: SignInSignUpView(initialMode: .signIn)) {
+                Text("Already have an account? Sign In or Sign Up")
+                    .font(.system(size: 15, weight: .medium))
+                    .foregroundColor(AppTheme.Colors.mutedText)
+                    .underline()
+                    .padding(.top, 8)
+            }
+            .buttonStyle(.plain)
+
             Text("By continuing, you agree to our Terms and Privacy Policy.")
                 .font(.system(size: 11))
                 .foregroundColor(AppTheme.Colors.mutedText)
