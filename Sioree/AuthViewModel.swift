@@ -27,6 +27,18 @@ class AuthViewModel: ObservableObject {
         // UI handles navigation → role selection → questions
     }
 
+    func signIn(email: String, password: String) {
+        let trimmedEmail = email
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+
+        guard !trimmedEmail.isEmpty, !password.isEmpty else { return }
+
+        // In lieu of a backend, instantly mark the session as authenticated.
+        sessionType = .signedUp
+        isAuthenticated = true
+        persist()
+    }
+
     func signUpComplete(as role: UserRole) {
         selectedRole = role
         sessionType = .signedUp
