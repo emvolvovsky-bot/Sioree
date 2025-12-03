@@ -34,6 +34,24 @@ class AuthViewModel: ObservableObject {
         persist()
     }
 
+    // MARK: - Lightweight Auth
+
+    func signIn(email: String, password: String) {
+        // Simulated sign-in: mark the session as authenticated.
+        selectedRole = selectedRole ?? .partier
+        sessionType = .signedUp
+        isAuthenticated = true
+        persist()
+    }
+
+    func quickSignUp(displayName: String, email: String, password: String) {
+        // For prototype purposes we immediately authenticate the user.
+        selectedRole = selectedRole ?? .host
+        sessionType = .signedUp
+        isAuthenticated = true
+        persist()
+    }
+
     func continueAsGuest() {
         selectedRole = nil
         sessionType = .guest
