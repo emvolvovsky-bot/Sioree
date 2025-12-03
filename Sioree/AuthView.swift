@@ -48,6 +48,18 @@ struct AuthView: View {
                         )
                 }
 
+                NavigationLink(destination: SignInView()) {
+                    Text("I already have an account")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(AppTheme.Colors.accent)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 14)
+                        .background(
+                            RoundedRectangle(cornerRadius: 18, style: .continuous)
+                                .fill(Color.white.opacity(0.05))
+                        )
+                }
+
                 // GHOST BUTTON
                 Button("Continue as Guest") {
                     auth.continueAsGuest()
