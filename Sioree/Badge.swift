@@ -1,6 +1,6 @@
 import Foundation
 
-// hello
+// hello i am emil
 
 struct Badge: Identifiable, Codable {
     let id: UUID
