@@ -1,24 +1,19 @@
-//
-//  ContentView.swift
-//  Sioree
-//
-//  Created by Emil Volvovsky on 12/2/25.
-//
-
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
-    }
-}
 
-#Preview {
-    ContentView()
+struct ContentView: View {
+    @EnvironmentObject var auth: AuthViewModel
+
+    var body: some View {
+        Group {
+            if auth.isAuthenticated {
+                RootTabView()
+            } else {
+                NavigationView {
+                    AuthView()
+                }
+                .navigationViewStyle(.stack)
+            }
+        }
+    }
 }

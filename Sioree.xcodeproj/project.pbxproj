@@ -24,6 +24,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		772785C92EE06C1400DC542F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		77D7BFE82EDFE46E0002A331 /* Sioree.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sioree.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D7BFF82EDFE4700002A331 /* SioreeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SioreeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		77D7C0022EDFE4700002A331 /* SioreeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SioreeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +76,7 @@
 		77D7BFDF2EDFE46E0002A331 = {
 			isa = PBXGroup;
 			children = (
+				772785C92EE06C1400DC542F /* Info.plist */,
 				77D7BFEA2EDFE46E0002A331 /* Sioree */,
 				77D7BFFB2EDFE4700002A331 /* SioreeTests */,
 				77D7C0052EDFE4700002A331 /* SioreeUITests */,
@@ -326,6 +328,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_SWIFT_FLAGS[arch=*]" = "-Xfrontend -warn-long-function-bodies=200 -Xfrontend\n -warn-long-expression-type-checking=200";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -398,7 +401,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Sioree/Preview Content\"";
 				DEVELOPMENT_TEAM = 27UYP9A87W;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -427,7 +431,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Sioree/Preview Content\"";
 				DEVELOPMENT_TEAM = 27UYP9A87W;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Info.plist\n";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
