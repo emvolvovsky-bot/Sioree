@@ -27,9 +27,13 @@ struct RoleSelectionView: View {
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
                     .background(
-                        auth.selectedRole == role ?
-                        AppTheme.Gradients.hero.opacity(1)
-                        : Color.white.opacity(0.05)
+                        Group {
+                            if auth.selectedRole == role {
+                                AppTheme.Gradients.hero
+                            } else {
+                                Color.white.opacity(0.05)
+                            }
+                        }
                     )
                     .cornerRadius(16)
                 }
