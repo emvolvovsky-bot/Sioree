@@ -51,13 +51,8 @@ struct SignInSignUpView: View {
 
                 Button(action: handleSubmit) {
                     Text(mode == .signIn ? "Sign In" : "Create Account")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(AppTheme.Gradients.hero)
-                        .cornerRadius(20)
                 }
+                .sioreePrimary()
                 .padding(.top, 8)
 
                 togglePrompt
@@ -65,7 +60,7 @@ struct SignInSignUpView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 32)
         }
-        .background(AppTheme.Colors.background.ignoresSafeArea())
+        .sioreeScreenBackground()
         .navigationTitle(mode == .signIn ? "Already have an account?" : "Create a Sioree account")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -83,8 +78,8 @@ struct SignInSignUpView: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(mode.rawValue)
-                .font(.system(size: 28, weight: .bold, design: .rounded))
-                .foregroundColor(.white)
+                .font(.system(size: 32, weight: .heavy))
+                .foregroundColor(AppTheme.Colors.charcoal)
 
             Text(mode.subtitle)
                 .font(.system(size: 15))
@@ -103,19 +98,17 @@ struct SignInSignUpView: View {
                 } label: {
                     Text(option.rawValue)
                         .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(option == mode ? .black : AppTheme.Colors.mutedText)
+                        .foregroundColor(option == mode ? .white : AppTheme.Colors.mutedText)
                         .frame(maxWidth: .infinity)
                         .padding(.vertical, 12)
                         .background(
-                            Group {
-                                if option == mode {
-                                    LinearGradient(colors: [Color.white, Color.white.opacity(0.8)], startPoint: .topLeading, endPoint: .bottomTrailing)
-                                } else {
-                                    Color.white.opacity(0.05)
-                                }
-                            }
+                            RoundedRectangle(cornerRadius: AppTheme.Radii.card)
+                                .fill(option == mode ? AppTheme.Colors.charcoal : AppTheme.Colors.surface)
                         )
-                        .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: AppTheme.Radii.card)
+                                .stroke(AppTheme.Colors.border, lineWidth: 1)
+                        )
                 }
             }
         }
@@ -159,6 +152,7 @@ struct SignInSignUpView: View {
                 Text(mode == .signIn ? "Sign Up" : "Sign In")
                     .font(.system(size: 14, weight: .semibold))
             }
+            .foregroundColor(AppTheme.Colors.charcoal)
         }
         .frame(maxWidth: .infinity, alignment: .center)
     }
@@ -239,13 +233,13 @@ struct SignInSignUpView: View {
             .textContentType(textContentType)
             .focused($focusedField, equals: field)
             .font(.system(size: 16))
-            .foregroundColor(.white)
+            .foregroundColor(AppTheme.Colors.charcoal)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
         .background(
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(AppTheme.Colors.card)
+                .fill(AppTheme.Colors.surface)
                 .overlay(
                     RoundedRectangle(cornerRadius: 18, style: .continuous)
                         .stroke(AppTheme.Colors.border, lineWidth: 1)
@@ -264,6 +258,5 @@ struct SignInSignUpView_Previews: PreviewProvider {
             SignInSignUpView(initialMode: .signIn)
                 .environmentObject(AuthViewModel())
         }
-        .preferredColorScheme(.dark)
     }
 }

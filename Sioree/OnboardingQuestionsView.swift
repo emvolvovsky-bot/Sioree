@@ -1,11 +1,3 @@
-//
-//  OnboardingQuestionsView.swift
-//  Sioree
-//
-//  Created by Emil Volvovsky on 12/2/25.
-//
-
-
 import SwiftUI
 
 struct OnboardingQuestionsView: View {
@@ -17,18 +9,28 @@ struct OnboardingQuestionsView: View {
     @State private var answer3 = ""
 
     var body: some View {
-        VStack(spacing: 30) {
+        VStack(spacing: 28) {
+            ProgressView(value: Double(step + 1), total: 3)
+                .tint(AppTheme.Colors.charcoal)
+                .padding(.top, 32)
 
             Text(titleForStep(step))
-                .font(.system(size: 26, weight: .bold))
-                .foregroundColor(.white)
-                .padding(.top, 40)
+                .font(.system(size: 26, weight: .heavy))
+                .foregroundColor(AppTheme.Colors.charcoal)
+                .frame(maxWidth: .infinity, alignment: .leading)
 
-            TextField(placeholderForStep(step), text: bindingForStep(step))
-                .padding()
-                .background(Color.white.opacity(0.08))
-                .cornerRadius(14)
-                .foregroundColor(.white)
+            GlassCard {
+                VStack(alignment: .leading, spacing: 12) {
+                    Text(placeholderForStep(step))
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(AppTheme.Colors.mutedText)
+
+                    TextField("", text: bindingForStep(step))
+                        .textFieldStyle(.plain)
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(AppTheme.Colors.charcoal)
+                }
+            }
 
             Spacer()
 
@@ -43,21 +45,17 @@ struct OnboardingQuestionsView: View {
                     )
                 }
             }
-            .font(.system(size: 17, weight: .semibold))
-            .foregroundColor(.white)
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, 16)
-            .background(AppTheme.Gradients.hero)
-            .cornerRadius(20)
+            .sioreePrimary()
         }
-        .padding(24)
-        .background(AppTheme.Colors.background)
+        .padding(.horizontal, 24)
+        .padding(.bottom, 40)
+        .sioreeScreenBackground()
         .navigationBarBackButtonHidden(true)
     }
 
     // MARK: - Helpers
 
-    func titleForStep(_ step: Int) -> String {
+    private func titleForStep(_ step: Int) -> String {
         switch step {
         case 0: return "Where are you based?"
         case 1: return "What kind of events do you like?"
@@ -66,16 +64,16 @@ struct OnboardingQuestionsView: View {
         }
     }
 
-    func placeholderForStep(_ step: Int) -> String {
+    private func placeholderForStep(_ step: Int) -> String {
         switch step {
-        case 0: return "City, region..."
-        case 1: return "Parties, clubs, house events..."
-        case 2: return "Chill, ravey, boujee..."
+        case 0: return "City, region, or multiple hubs."
+        case 1: return "Parties, clubs, house events, art shows..."
+        case 2: return "Chill, ravey, boujee, underground..."
         default: return ""
         }
     }
 
-    func bindingForStep(_ step: Int) -> Binding<String> {
+    private func bindingForStep(_ step: Int) -> Binding<String> {
         switch step {
         case 0: return $answer1
         case 1: return $answer2
@@ -84,3 +82,11 @@ struct OnboardingQuestionsView: View {
         }
     }
 }
+//
+//  OnboardingQuestionsView.swift
+//  Sioree
+//
+//  Created by Emil Volvovsky on 12/2/25.
+//
+
+

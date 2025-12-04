@@ -18,7 +18,7 @@ struct BadgeView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text(badge.title)
                     .font(.system(size: 13, weight: .semibold))
-                    .foregroundColor(.white)
+                    .foregroundColor(AppTheme.Colors.charcoal)
 
                 Text(badge.subtitle)
                     .font(.system(size: 11))

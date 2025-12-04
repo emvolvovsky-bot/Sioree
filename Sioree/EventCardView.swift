@@ -5,98 +5,109 @@ struct EventCardView: View {
 
     var body: some View {
         GlassCard {
-            VStack(alignment: .leading, spacing: 12) {
-                // Poster / banner
-                ZStack(alignment: .bottomLeading) {
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(
-                            LinearGradient(
-                                colors: [
-                                    Color(red: 0.18, green: 0.18, blue: 0.22),
-                                    Color(red: 0.04, green: 0.04, blue: 0.06)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
-                        .overlay(
-                            LinearGradient(
-                                colors: [AppTheme.Colors.accentWarm.opacity(0.4),
-                                         .clear],
-                                startPoint: .bottomLeading,
-                                endPoint: .topTrailing
-                            )
-                                .blendMode(.screen)
-                        )
+            VStack(alignment: .leading, spacing: 16) {
+                headerBanner
 
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(event.title.uppercased())
-                            .font(.system(size: 13, weight: .bold, design: .rounded))
-                            .foregroundColor(.white)
-
-                        Text(event.city)
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(.white.opacity(0.8))
-                    }
-                    .padding(12)
-                }
-                .frame(height: 170)
-
-                // Details row
-                HStack(alignment: .center) {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Hosted by independent creators")
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(AppTheme.Colors.strongText)
+                HStack(alignment: .top, spacing: 16) {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(event.title)
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
 
                         Text(event.description)
-                            .font(.system(size: 12))
+                            .font(.system(size: 13))
                             .foregroundColor(AppTheme.Colors.mutedText)
                             .lineLimit(2)
                     }
 
-                    Spacer(minLength: 12)
+                    Spacer()
 
-                    VStack(alignment: .trailing, spacing: 8) {
+                    VStack(alignment: .trailing, spacing: 4) {
+                        Text("from")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(AppTheme.Colors.mutedText)
+
                         if let cheapest = event.ticketTiers.min(by: { $0.price < $1.price }) {
-                            Text("from")
-                                .font(.system(size: 10))
-                                .foregroundColor(AppTheme.Colors.mutedText)
-
                             Text("$\(Int(cheapest.price))")
-                                .font(.system(size: 18, weight: .bold, design: .rounded))
-                                .foregroundColor(AppTheme.Colors.accent)
+                                .font(.system(size: 22, weight: .bold))
+                                .foregroundColor(AppTheme.Colors.charcoal)
                         }
 
-                        Text("Tickets · Limited")
-                            .font(.system(size: 11))
-                            .foregroundColor(AppTheme.Colors.mutedText)
+                        Text("Enable monetization")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(AppTheme.Colors.accentWarm)
                     }
                 }
 
-                // Tags
-                HStack(spacing: 8) {
-                    tag("Rooftop")
-                    tag("Nightlife")
-                    tag("Sioree Verified")
+                Divider().overlay(AppTheme.Colors.border.opacity(0.6))
+
+                VStack(alignment: .leading, spacing: 10) {
+                    Text("Teams, payouts, analytics")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundColor(AppTheme.Colors.charcoal)
+
+                    WrapHStack(
+                        data: ["Team dashboard", "Stripe + PayPal", "Realtime views", "Talent marketplace", "Map-ready"],
+                        spacing: 8,
+                        lineSpacing: 8
+                    ) { item in
+                        tag(item)
+                    }
                 }
             }
         }
     }
 
+    private var headerBanner: some View {
+        ZStack(alignment: .topLeading) {
+            RoundedRectangle(cornerRadius: 22, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        colors: [
+                            AppTheme.Colors.surfaceMuted,
+                            Color.white
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .overlay(
+                    LinearGradient(
+                        colors: [
+                            AppTheme.Colors.accent.opacity(0.6),
+                            Color.clear
+                        ],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                    .opacity(0.4)
+                )
+
+            VStack(alignment: .leading, spacing: 8) {
+                Text(event.city.uppercased())
+                    .font(.system(size: 11, weight: .heavy))
+                    .foregroundColor(AppTheme.Colors.charcoal)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.white.opacity(0.8))
+                    .cornerRadius(AppTheme.Radii.pill)
+
+                Text("Collective owned · RSVPs live on map")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(AppTheme.Colors.charcoal)
+            }
+            .padding(18)
+        }
+        .frame(height: 160)
+    }
+
     private func tag(_ text: String) -> some View {
         Text(text)
-            .font(.system(size: 10, weight: .medium))
-            .padding(.horizontal, 10)
-            .padding(.vertical, 4)
-            .background(
-                RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                    .fill(Color.white.opacity(0.04))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                    .stroke(AppTheme.Colors.border, lineWidth: 0.8)
-            )
-            .foregroundColor(AppTheme.Colors.mutedText)
+            .font(.system(size: 11, weight: .medium))
+            .padding(.horizontal, 12)
+            .padding(.vertical, 6)
+            .background(AppTheme.Colors.surfaceMuted)
+            .foregroundColor(AppTheme.Colors.charcoal)
+            .cornerRadius(AppTheme.Radii.pill)
     }
 }

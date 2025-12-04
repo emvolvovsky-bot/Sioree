@@ -17,15 +17,36 @@ struct GlassCard<Content: View>: View {
 
     var body: some View {
         content
-            .padding(16)
+            .padding(20)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 RoundedRectangle(cornerRadius: AppTheme.Radii.card, style: .continuous)
-                    .fill(Color.white.opacity(0.04))
-                    .background(
+                    .fill(AppTheme.Colors.surface)
+                    .overlay(
                         RoundedRectangle(cornerRadius: AppTheme.Radii.card, style: .continuous)
                             .stroke(AppTheme.Colors.border, lineWidth: 1)
+                            .blendMode(.lighten)
                     )
-                    .shadow(color: .black.opacity(0.6), radius: 20, x: 0, y: 16)
+                    .shadow(
+                        color: AppTheme.Shadows.soft.color,
+                        radius: AppTheme.Shadows.soft.radius,
+                        x: AppTheme.Shadows.soft.x,
+                        y: AppTheme.Shadows.soft.y
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: AppTheme.Radii.card, style: .continuous)
+                            .fill(
+                                LinearGradient(
+                                    colors: [
+                                        Color.white.opacity(0.18),
+                                        Color.white.opacity(0.02)
+                                    ],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .opacity(0.5)
+                    )
             )
     }
 }

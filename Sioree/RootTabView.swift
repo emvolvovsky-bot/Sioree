@@ -2,8 +2,8 @@ import SwiftUI
 
 struct RootTabView: View {
     init() {
-        UITabBar.appearance().backgroundColor = UIColor(AppTheme.Colors.backgroundSoft)
-        UITabBar.appearance().unselectedItemTintColor = UIColor.white.withAlphaComponent(0.45)
+        UITabBar.appearance().backgroundColor = UIColor(AppTheme.Colors.surface)
+        UITabBar.appearance().unselectedItemTintColor = UIColor(AppTheme.Colors.mutedText)
     }
 
     var body: some View {
@@ -38,7 +38,8 @@ struct RootTabView: View {
                     Text("Profile")
                 }
         }
-        .tint(AppTheme.Colors.accent)
+        .tint(AppTheme.Colors.charcoal)
+        .background(AppTheme.Colors.background)
         .sioreeScreenBackground()
     }
 }

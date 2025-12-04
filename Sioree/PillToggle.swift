@@ -25,12 +25,12 @@ struct PillToggle: View {
         .padding(.vertical, 8)
         .background(
             RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                .fill(isSelected ? AppTheme.Colors.accent.opacity(0.18) : Color.white.opacity(0.02))
+                .fill(isSelected ? AppTheme.Colors.charcoal : AppTheme.Colors.surface)
         )
         .overlay(
             RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                .stroke(isSelected ? AppTheme.Colors.accent : AppTheme.Colors.border, lineWidth: 1.1)
+                .stroke(AppTheme.Colors.border, lineWidth: 1.1)
         )
-        .foregroundColor(.white)
+        .foregroundColor(isSelected ? .white : AppTheme.Colors.mutedText)
     }
 }

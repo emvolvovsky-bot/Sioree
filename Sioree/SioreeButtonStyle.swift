@@ -10,31 +10,37 @@ import SwiftUI
 
 struct SioreeButtonStyle: ButtonStyle {
     let isGhost: Bool
+    var fullWidth: Bool = true
 
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.system(.headline, design: .rounded))
-            .foregroundColor(isGhost ? AppTheme.Colors.strongText : .black)
-            .padding(.horizontal, 20)
-            .padding(.vertical, 14)
-            .background(
-                Group {
-                    if isGhost {
-                        RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                            .stroke(AppTheme.Colors.accent, lineWidth: 1.2)
-                            .background(
-                                RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                                    .fill(Color.clear)
-                            )
-                    } else {
-                        RoundedRectangle(cornerRadius: AppTheme.Radii.pill, style: .continuous)
-                            .fill(AppTheme.Gradients.hero)
-                    }
-                }
+            .font(.system(size: 16, weight: .semibold))
+            .frame(maxWidth: fullWidth ? .infinity : nil)
+            .padding(.vertical, 16)
+            .foregroundColor(isGhost ? AppTheme.Colors.strongText : AppTheme.Colors.charcoal)
+            .background(background(isPressed: configuration.isPressed))
+            .scaleEffect(configuration.isPressed ? 0.98 : 1.0)
+            .animation(.easeOut(duration: 0.18), value: configuration.isPressed)
+    }
+
+    @ViewBuilder
+    private func background(isPressed: Bool) -> some View {
+        RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
+            .fill(isGhost ? Color.clear : AppTheme.Gradients.halo)
+            .overlay(
+                RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
+                    .stroke(
+                        isGhost ? AppTheme.Colors.borderBold : Color.white.opacity(isPressed ? 0.8 : 0.5),
+                        lineWidth: 1.3
+                    )
             )
-            .scaleEffect(configuration.isPressed ? 0.97 : 1.0)
-            .opacity(configuration.isPressed ? 0.9 : 1.0)
-            .animation(.spring(response: 0.25, dampingFraction: 0.8), value: configuration.isPressed)
+            .shadow(
+                color: isGhost ? Color.clear : AppTheme.Colors.accent.opacity(isPressed ? 0.15 : 0.35),
+                radius: isGhost ? 0 : 22,
+                x: 0,
+                y: 16
+            )
+            .opacity(isGhost ? (isPressed ? 0.85 : 1.0) : 1.0)
     }
 }
 
