@@ -26,7 +26,7 @@ struct SioreeButtonStyle: ButtonStyle {
     @ViewBuilder
     private func background(isPressed: Bool) -> some View {
         RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
-            .fill(isGhost ? Color.clear : AppTheme.Gradients.halo)
+            .fill(backgroundFill)
             .overlay(
                 RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
                     .stroke(
@@ -41,6 +41,10 @@ struct SioreeButtonStyle: ButtonStyle {
                 y: 16
             )
             .opacity(isGhost ? (isPressed ? 0.85 : 1.0) : 1.0)
+    }
+
+    private var backgroundFill: AnyShapeStyle {
+        isGhost ? AnyShapeStyle(Color.clear) : AnyShapeStyle(AppTheme.Gradients.halo)
     }
 }
 
