@@ -44,12 +44,12 @@ struct SioreeButtonStyle: ButtonStyle {
     }
 }
 
-extension Button where Label == Text {
-    func sioreePrimary() -> some View {
-        self.buttonStyle(SioreeButtonStyle(isGhost: false))
+extension View {
+    func sioreePrimary(fullWidth: Bool = true) -> some View {
+        buttonStyle(SioreeButtonStyle(isGhost: false, fullWidth: fullWidth))
     }
 
-    func sioreeGhost() -> some View {
-        self.buttonStyle(SioreeButtonStyle(isGhost: true))
+    func sioreeGhost(fullWidth: Bool = true) -> some View {
+        buttonStyle(SioreeButtonStyle(isGhost: true, fullWidth: fullWidth))
     }
 }
