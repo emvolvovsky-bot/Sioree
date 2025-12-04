@@ -3,73 +3,80 @@ import SwiftUI
 struct BudgetSummaryView: View {
     @ObservedObject var vm: EventCreationViewModel
 
-    var totalCost: Double {
+    private var total: Double {
         vm.selectedAddOns.reduce(0) { $0 + $1.estimatedCost }
     }
 
     var body: some View {
-        ScrollView {
-            VStack(spacing: 22) {
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 20) {
                 GlassCard {
-                    VStack(alignment: .leading, spacing: 6) {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text("Budget preview")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(.white)
-
-                        Text("Rough cost breakdown for your event. You can tweak or swap vendors later.")
-                            .font(.system(size: 11))
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
+                        Text("Instant cost breakdown as you layer services. Swap vendors, duplicate templates, or save for recurring series.")
+                            .font(.system(size: 13))
                             .foregroundColor(AppTheme.Colors.mutedText)
                     }
                 }
 
                 GlassCard {
-                    VStack(spacing: 10) {
+                    VStack(spacing: 16) {
                         ForEach(vm.selectedAddOns) { addOn in
                             HStack {
-                                VStack(alignment: .leading, spacing: 2) {
+                                VStack(alignment: .leading, spacing: 4) {
                                     Text(addOn.name)
-                                        .font(.system(size: 13, weight: .medium))
-                                        .foregroundColor(.white)
+                                        .font(.system(size: 14, weight: .semibold))
+                                        .foregroundColor(AppTheme.Colors.charcoal)
                                     Text(addOn.category.rawValue.capitalized)
-                                        .font(.system(size: 10))
+                                        .font(.system(size: 11))
                                         .foregroundColor(AppTheme.Colors.mutedText)
                                 }
                                 Spacer()
                                 Text("$\(Int(addOn.estimatedCost))")
-                                    .font(.system(size: 13, weight: .semibold))
-                                    .foregroundColor(AppTheme.Colors.accent)
+                                    .font(.system(size: 14, weight: .medium))
+                                    .foregroundColor(AppTheme.Colors.charcoal)
                             }
-                            .padding(.vertical, 4)
 
                             if addOn.id != vm.selectedAddOns.last?.id {
-                                Divider().opacity(0.25)
+                                Divider().background(AppTheme.Colors.border)
                             }
                         }
 
-                        Divider().opacity(0.25)
-                            .padding(.top, 4)
+                        Divider().background(AppTheme.Colors.border)
 
                         HStack {
                             Text("Estimated total")
-                                .font(.system(size: 13, weight: .semibold))
-                                .foregroundColor(.white)
+                                .font(.system(size: 15, weight: .bold))
+                                .foregroundColor(AppTheme.Colors.charcoal)
                             Spacer()
-                            Text("$\(Int(totalCost))")
-                                .font(.system(size: 17, weight: .bold))
-                                .foregroundColor(AppTheme.Colors.accent)
+                            Text("$\(Int(total))")
+                                .font(.system(size: 22, weight: .heavy))
+                                .foregroundColor(AppTheme.Colors.charcoal)
                         }
-                        .padding(.top, 4)
+                    }
+                }
+
+                GlassCard {
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("Save & repeat")
+                            .font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
+                        Text("Turn this stack into a template for touring nights, branded activations, or community meetups.")
+                            .font(.system(size: 13))
+                            .foregroundColor(AppTheme.Colors.mutedText)
                     }
                 }
 
                 Button("Save event draft") {
-                    // TODO: persist
+                    // Hook into persistence later
                 }
                 .sioreePrimary()
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 24)
-            .padding(.bottom, 40)
+            .padding(.horizontal, 24)
+            .padding(.top, 32)
+            .padding(.bottom, 60)
         }
         .sioreeScreenBackground()
     }

@@ -2,49 +2,74 @@ import SwiftUI
 
 struct AppTheme {
     struct Colors {
-        static let background = Color(red: 0.03, green: 0.03, blue: 0.05)      // near-black
-        static let backgroundSoft = Color(red: 0.07, green: 0.07, blue: 0.10)
-        static let card = Color(red: 0.10, green: 0.10, blue: 0.14)
-        static let border = Color.white.opacity(0.12)
+        static let background = Color(red: 0.96, green: 0.96, blue: 0.96)      // #F5F5F5
+        static let backgroundSoft = Color(red: 0.93, green: 0.93, blue: 0.95)  // whisper grey
+        static let surface = Color.white
+        static let surfaceMuted = Color(red: 0.91, green: 0.92, blue: 0.94)
 
-        static let accent = Color(red: 0.42, green: 0.83, blue: 0.98)          // icy blue accent
-        static let accentWarm = Color(red: 0.98, green: 0.52, blue: 0.52)      // warm glow option
+        static let charcoal = Color(red: 0.12, green: 0.12, blue: 0.12)        // #1E1E1E
+        static let graphite = Color(red: 0.18, green: 0.18, blue: 0.18)
+        static let strongText = charcoal
+        static let mutedText = Color(red: 0.36, green: 0.36, blue: 0.38)
 
-        static let mutedText = Color.white.opacity(0.6)
-        static let strongText = Color.white
+        static let border = Color.black.opacity(0.08)
+        static let borderBold = Color.black.opacity(0.14)
+
+        static let accent = Color(red: 0.69, green: 0.87, blue: 1.0)           // icy blue
+        static let accentWarm = Color(red: 1.0, green: 0.82, blue: 0.65)       // warm glow
+        static let neon = Color(red: 0.80, green: 0.95, blue: 1.0)
     }
 
     struct Gradients {
-        static let hero = LinearGradient(
+        static let hero = halo
+
+        static let halo = LinearGradient(
             colors: [
-                Color(red: 0.99, green: 0.53, blue: 0.54).opacity(0.9),
-                Color(red: 0.45, green: 0.80, blue: 1.00).opacity(0.9)
+                Colors.accent.opacity(0.95),
+                Colors.accentWarm.opacity(0.55)
             ],
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
 
-        static let subtleGlow = LinearGradient(
+        static let page = LinearGradient(
             colors: [
-                Colors.backgroundSoft,
-                Color(red: 0.20, green: 0.22, blue: 0.30)
+                Colors.background,
+                Colors.backgroundSoft
             ],
-            startPoint: .top,
-            endPoint: .bottom
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+
+        static let cardSheen = LinearGradient(
+            colors: [
+                Color.white.opacity(0.92),
+                Color.white.opacity(0.55)
+            ],
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
         )
     }
 
     struct Radii {
-        static let card: CGFloat = 22
-        static let pill: CGFloat = 999
+        static let card: CGFloat = 26
+        static let pill: CGFloat = 16
+        static let tile: CGFloat = 20
     }
 
     struct Shadows {
         static let glow = ShadowStyle(
-            color: Colors.accent.opacity(0.6),
+            color: Colors.accent.opacity(0.45),
+            radius: 30,
+            x: 0,
+            y: 18
+        )
+
+        static let soft = ShadowStyle(
+            color: Color.black.opacity(0.08),
             radius: 18,
             x: 0,
-            y: 10
+            y: 12
         )
     }
 

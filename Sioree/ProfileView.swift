@@ -13,16 +13,23 @@ struct ProfileView: View {
         eventsAttended: 18
     )
 
+    private let marketplaceHighlights = [
+        "Peer-to-peer rentals & teams",
+        "DJ + vendor listings with reviews",
+        "Stripe/PayPal payouts enabled",
+        "Map-based discovery toggle"
+    ]
+
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 24) {
                 header
 
                 GlassCard {
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: 14) {
                         Text("Badges")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
 
                         ForEach(mockUser.badges) { badge in
                             BadgeView(badge: badge)
@@ -31,13 +38,13 @@ struct ProfileView: View {
                 }
 
                 GlassCard {
-                    VStack(alignment: .leading, spacing: 8) {
+                    VStack(alignment: .leading, spacing: 12) {
                         Text("Stats")
-                            .font(.system(size: 14, weight: .semibold))
-                            .foregroundColor(.white)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
 
                         HStack {
-                            stat("Events Hosted", "\(mockUser.eventsAttended)")
+                            stat("Events hosted", "\(mockUser.eventsAttended)")
                             Spacer()
                             stat("Followers", "1.2K")
                             Spacer()
@@ -46,52 +53,69 @@ struct ProfileView: View {
                     }
                 }
 
+                GlassCard {
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Marketplace reach")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
+
+                        WrapHStack(data: marketplaceHighlights, spacing: 10, lineSpacing: 10) { point in
+                            Text(point)
+                                .font(.system(size: 11, weight: .medium))
+                                .padding(.horizontal, 12)
+                                .padding(.vertical, 6)
+                                .background(AppTheme.Colors.surfaceMuted)
+                                .cornerRadius(AppTheme.Radii.pill)
+                                .foregroundColor(AppTheme.Colors.charcoal)
+                        }
+                    }
+                }
+
                 Spacer(minLength: 40)
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 24)
-            .padding(.bottom, 40)
+            .padding(.horizontal, 24)
+            .padding(.top, 32)
+            .padding(.bottom, 60)
         }
         .sioreeScreenBackground()
     }
 
     private var header: some View {
-        VStack(spacing: 12) {
-            ZStack {
-                Circle()
-                    .fill(AppTheme.Gradients.hero)
-                    .frame(width: 110, height: 110)
-                    .blur(radius: 16)
+        GlassCard {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(alignment: .top, spacing: 16) {
+                    Circle()
+                        .fill(AppTheme.Gradients.halo)
+                        .frame(width: 90, height: 90)
+                        .overlay(
+                            Image(systemName: "person.fill")
+                                .font(.system(size: 36, weight: .semibold))
+                                .foregroundColor(AppTheme.Colors.charcoal)
+                        )
 
-                Circle()
-                    .strokeBorder(Color.white.opacity(0.3), lineWidth: 2)
-                    .background(Circle().fill(Color.black.opacity(0.4)))
-                    .frame(width: 90, height: 90)
-                    .overlay(
-                        Image(systemName: "person.fill")
-                            .font(.system(size: 40))
-                            .foregroundColor(.white)
-                    )
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(mockUser.name)
+                            .font(.system(size: 22, weight: .semibold))
+                            .foregroundColor(AppTheme.Colors.charcoal)
+                        Text("\(mockUser.city) • \(mockUser.role.rawValue.capitalized)")
+                            .font(.system(size: 13))
+                            .foregroundColor(AppTheme.Colors.mutedText)
+                    }
+
+                    Spacer()
+                }
+
+                Button("Edit profile") { }
+                    .buttonStyle(SioreeButtonStyle(isGhost: true, fullWidth: false))
             }
-
-            Text(mockUser.name)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundColor(.white)
-
-            Text("\(mockUser.city) • \(mockUser.role.rawValue.capitalized)")
-                .font(.system(size: 13))
-                .foregroundColor(AppTheme.Colors.mutedText)
-
-            Button("Edit profile") { }
-                .sioreeGhost()
         }
     }
 
     private func stat(_ title: String, _ value: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(value)
-                .font(.system(size: 16, weight: .bold))
-                .foregroundColor(.white)
+                .font(.system(size: 18, weight: .bold))
+                .foregroundColor(AppTheme.Colors.charcoal)
             Text(title)
                 .font(.system(size: 11))
                 .foregroundColor(AppTheme.Colors.mutedText)
