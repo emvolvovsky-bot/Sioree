@@ -9,10 +9,9 @@ struct ContentView: View {
             if auth.isAuthenticated {
                 RootTabView()
             } else {
-                NavigationView {
+                NavigationStack {
                     AuthView()
                 }
-                .navigationViewStyle(.stack)
             }
         }
     }

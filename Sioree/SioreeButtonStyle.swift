@@ -26,7 +26,7 @@ struct SioreeButtonStyle: ButtonStyle {
     @ViewBuilder
     private func background(isPressed: Bool) -> some View {
         RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
-            .fill(isGhost ? Color.clear : AppTheme.Gradients.halo)
+            .fill(backgroundFill)
             .overlay(
                 RoundedRectangle(cornerRadius: AppTheme.Radii.tile, style: .continuous)
                     .stroke(
@@ -42,14 +42,18 @@ struct SioreeButtonStyle: ButtonStyle {
             )
             .opacity(isGhost ? (isPressed ? 0.85 : 1.0) : 1.0)
     }
+
+    private var backgroundFill: AnyShapeStyle {
+        isGhost ? AnyShapeStyle(Color.clear) : AnyShapeStyle(AppTheme.Gradients.halo)
+    }
 }
 
-extension Button where Label == Text {
-    func sioreePrimary() -> some View {
-        self.buttonStyle(SioreeButtonStyle(isGhost: false))
+extension View {
+    func sioreePrimary(fullWidth: Bool = true) -> some View {
+        buttonStyle(SioreeButtonStyle(isGhost: false, fullWidth: fullWidth))
     }
 
-    func sioreeGhost() -> some View {
-        self.buttonStyle(SioreeButtonStyle(isGhost: true))
+    func sioreeGhost(fullWidth: Bool = true) -> some View {
+        buttonStyle(SioreeButtonStyle(isGhost: true, fullWidth: fullWidth))
     }
 }
